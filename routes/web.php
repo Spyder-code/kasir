@@ -21,10 +21,9 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['Owner']], function () {
-    Route::get('/owner', 'OwnerController@index');
     Route::get('/owner/user', 'OwnerController@index');
-    Route::get('/owner/produk', 'OwnerController@index');
-    Route::get('/owner/laporan', 'OwnerController@index');
+    // Route::get('/owner/produk', 'OwnerController@index');
+    // Route::get('/owner/laporan', 'OwnerController@index');
 });
 
 Route::group(['middleware' => ['Kasir']], function () {

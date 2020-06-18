@@ -8,7 +8,7 @@ class OwnerController extends Controller
 {
     public function index()
     {
-        return view('pesanan');
+        return view('owner_view.user');
     }
 
     // Perusahaan
@@ -22,7 +22,7 @@ class OwnerController extends Controller
     {
 
     }
-    
+
     // Produk
     public function storeProduk()
     {
@@ -50,12 +50,12 @@ class OwnerController extends Controller
 
     }
 
-   
-   
-    
+
+
+
     public function update()
     {
 
     }
-   
+
 }
