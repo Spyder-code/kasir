@@ -119,6 +119,14 @@
                </a>
             </li>
             <li class="nav-item">
+               <a href="{{ url('/dashboard-admin-sneakcare/admin') }}" class="nav-link">
+                  <i class="nav-icon fas fa-cart-arrow-down"></i>
+                  <p>
+                     Kategori 
+                  </p>
+               </a>
+            </li>
+            <li class="nav-item">
                <a href="{{ url('/dashboard-admin-sneakcare/user') }}" class="nav-link">
                   <i class="nav-icon fas fa-file-contract"></i>
                   <p>
@@ -192,4 +200,11 @@
   {{-- <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script> --}}
   <!-- AdminLTE for demo purposes -->
   {{-- <script src="{{ asset('dist/js/demo.js') }}"></script> --}}
+  {{-- <script>
+   $.ajaxSetup({
+      headers: {
+         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+   });
+  </script> --}}
   @yield('custom-script')

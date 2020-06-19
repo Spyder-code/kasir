@@ -22,8 +22,19 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['Owner']], function () {
     Route::get('/owner/user', 'OwnerController@index');
-    // Route::get('/owner/produk', 'OwnerController@index');
-    // Route::get('/owner/laporan', 'OwnerController@index');
+    // produk
+    Route::get('/owner/produk', 'OwnerController@indexProduk')->name('produk');
+    Route::post('/owner/produk/store', 'OwnerController@storeProduk')->name('produk.store');
+    Route::get('/owner/produk/show/{id}', 'OwnerController@showProduk')->name('produk.show');
+    Route::get('/owner/produk/edit/{id}', 'OwnerController@editProduk')->name('produk.edit');
+    Route::post('/owner/produk/update/{id}', 'OwnerController@updateProduk')->name('produk.update');
+    Route::get('/owner/produk/destroy/{id}', 'OwnerController@destroyProduk')->name('produk.destroy');
+    // kategori
+    Route::get('/owner/kategori', 'OwnerController@indexKategori')->name('kategori');
+    Route::post('/owner/kategori/store', 'OwnerController@storeKategori')->name('kategori.store');
+    Route::get('/owner/kategori/edit/{id}', 'OwnerController@editKategori')->name('kategori.edit');
+    Route::post('/owner/kategori/update/{id}', 'OwnerController@updateKategori')->name('kategori.update');
+    Route::get('/owner/kategori/destroy/{id}', 'OwnerController@destroyKategori')->name('kategori.destroy');
 });
 
 Route::group(['middleware' => ['Kasir']], function () {
@@ -32,8 +43,8 @@ Route::group(['middleware' => ['Kasir']], function () {
 
 Route::get('/logout', 'Auth\LoginController@logout');
 
-Route::view('/lihat', 'owner_view.user');
-Route::view('/lihat2', 'owner_view.produk');
-Route::view('/lihat3', 'owner_view.laporan');
-Route::view('/lihat4', 'owner_view.perusahaan');
-Route::view('/lihat5', 'owner_view.detail_produk');
+// Route::view('/lihat', 'owner_view.user');
+// Route::view('/lihat2', 'owner_view.produk');
+// Route::view('/lihat3', 'owner_view.laporan');
+// Route::view('/lihat4', 'owner_view.perusahaan');
+// Route::view('/lihat5', 'owner_view.edit_kategori');
