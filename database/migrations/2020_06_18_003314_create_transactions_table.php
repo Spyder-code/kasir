@@ -17,7 +17,6 @@ class CreateTransactionsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('id_customer');
             $table->unsignedBigInteger('id_product');
-            $table->unsignedBigInteger('id_user');
             $table->integer('jumlah');
             $table->integer('total_harga');
 

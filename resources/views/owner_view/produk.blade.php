@@ -22,14 +22,14 @@
              <span aria-hidden="true">&times;</span>
            </button>
          </div>
-         @elseif (session('error')) 
+         @elseif (session('error'))
          <div class="alert alert-warning alert-dismissible fade show mt-4" role="alert">
             {{ session('error') }}
            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
              <span aria-hidden="true">&times;</span>
            </button>
          </div>
-         @endif 
+         @endif
          <form action="" method="post">
          <div class="content mt-4">
             <div class="input-group mb-3">
@@ -39,7 +39,7 @@
                <input type="text" id="search" class="form-control" placeholder="Cari Produk (berdasarkan nama)" name="keyword" autocomplete="off">
             </div>
          </div>
-         </form>         
+         </form>
          <button class="btn btn-primary mt-2" data-toggle="modal" data-target="#modalTambahProduk">Tambah Produk Baru</button>
          <div class="content mt-2">
             {{-- Masukan konten disini --}}
@@ -65,13 +65,13 @@
                     <td>{{ $prd->expired }}</td>
                     <td><img src="{{ URL::to('/') }}/owner/images/{{ $prd->image }}" style="max-width: 150px"></td>
                     <td>
-                        <button class="btn btn-sm btn-primary bDetailProduk" value="{{ $prd->id }}" data-toggle="modal" data-target="#modalDetail">Detail Gambar</button> 
+                        <button class="btn btn-sm btn-primary bDetailProduk" value="{{ $prd->id }}" data-toggle="modal" data-target="#modalDetail">Detail Gambar</button>
                         <a href="{{ route('produk.edit', [$prd->id]) }}" class="btn btn-sm btn-warning">Edit</a>
                         <a href="{{ route('produk.destroy', [$prd->id]) }}" class="btn btn-sm btn-danger text-white" onclick="return confirm('apakah kamu yakin menghapus produk ini?')">Hapus</a>
                     </td>
                   </tr>
                   @endforeach
-                  
+
                </tbody>
              </table>
          </div>
@@ -116,7 +116,17 @@
                      <div>
                         <label for="" class="">Gambar Produk</label>
                      </div>
-                     <input name="image" type="file" required>
+                     <input name="image" type="file" onchange="loadFile(event)" required>
+                     <img id="output" class="img-thumbnail mt-3" />
+                    <script>
+                    var loadFile = function(event) {
+                        var output = document.getElementById('output');
+                        output.src = URL.createObjectURL(event.target.files[0]);
+                        output.onload = function() {
+                        URL.revokeObjectURL(output.src)
+                        }
+                    };
+                    </script>
                   </div>
                   <button type="submit" class="btn btn-primary float-right">Tambahkan Data</button>
                </form>
@@ -124,7 +134,7 @@
           </div>
         </div>
       </div>
-      
+
       <!-- modal detail produk-->
       <div class="modal fade" id="modalDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
          <div class="modal-dialog">
@@ -164,7 +174,7 @@
          });
       });
    })
-  
+
 </script>
 @endsection
 

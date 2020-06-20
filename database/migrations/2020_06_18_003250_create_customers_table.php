@@ -15,10 +15,13 @@ class CreateCustomersTable extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_user');
             $table->string('total_pembayaran')->nullable();
             $table->integer('uang')->nullable();
             $table->integer('kembalian')->nullable();
             $table->timestamps();
+
+            $table->foreign('id_user')->references('id')->on('users');
         });
     }
 
