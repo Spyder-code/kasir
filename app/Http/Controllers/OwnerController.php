@@ -5,10 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
 use App\Category;
 use App\Product;
-use App\User;
+use App\Transaction;
 
 class OwnerController extends Controller
 {
@@ -89,13 +88,48 @@ class OwnerController extends Controller
 
    public function editProduk($id)
    {
-      $produk = Product::where('id', $id)->first();
-      return view('owner_view.edit_produk', ['produk' => $produk]);
+      $produk = Product::find($id);
+      $kategori = Category::all();
+      return view('owner_view.edit_produk', ['produk' => $produk, 'kategori' => $kategori]);
    }
 
-   public function updateProduk()
+   public function updateProduk(Request $request, $id)
    {
-
+      try {
+         $request->validate([
+            'nama'         => 'required|max:255',
+            'kategori'     => 'required|numeric',
+            'harga'        => 'required|numeric',
+            'expired'      => 'required|date',
+            'image'        => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+         ]);
+         if($request->hasFile('image')){
+            $namaGambar = time().'.'.$request->image->extension();  
+            $request->image->move(public_path('owner/images'), $namaGambar);
+            //---------------------------
+            $produk = Product::find($id);
+            $produk->nama = $request->nama;
+            $produk->id_kategori = $request->kategori;
+            $produk->harga = $request->harga;
+            $produk->expired = $request->expired;
+            $produk->image = $namaGambar;
+            $produk->barcode = $request->nama;
+            $produk->save();
+            return redirect()->route('produk')->with('success', 'Data berhasil diperbarui');
+         } else {
+            $produk = Product::find($id);
+            $produk->nama = $request->nama;
+            $produk->id_kategori = $request->kategori;
+            $produk->harga = $request->harga;
+            $produk->expired = $request->expired;
+            $produk->image = $request->gambarLama;
+            $produk->barcode = $request->nama;
+            $produk->save();
+            return redirect()->route('produk')->with('success', 'Data berhasil diperbarui');
+         } 
+      } catch (\Throwable $th) {
+         return redirect()->route('produk')->with('error', 'Data gagal diperbarui');
+      }
    }
 
    public function destroyProduk($id)
@@ -110,7 +144,11 @@ class OwnerController extends Controller
    }
 
    // -------------------------------------- Laporan
-
+   public function indexLaporanTabel()
+   {
+      $transaksi = Transaction::all();
+      return view('owner_view.laporan_tabel', ['transaksi' => $transaksi]);
+   }
 
    // -------------------------------------- Kategori
    public function indexKategori()
@@ -149,9 +187,9 @@ class OwnerController extends Controller
          $kategori = Category::find($id);
          $kategori->nama = $request->nama;
          $kategori->save();
-         return redirect()->route('kategori')->with('success', 'Data berhasil diubah');
+         return redirect()->route('kategori')->with('success', 'Data berhasil diperbarui');
       } catch (\Throwable $th) {
-         return redirect()->route('kategori')->with('error', 'Data gagal diubah!');
+         return redirect()->route('kategori')->with('error', 'Data gagal diperbarui!');
       }
    }
 

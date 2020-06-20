@@ -38,7 +38,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-      <a href="{{ '/dashboard/mahasiswa' }}" class="nav-link">Home</a>
+      <a href="" class="nav-link">Home</a>
       </li>
       {{-- <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
@@ -126,13 +126,28 @@
                   </p>
                </a>
             </li>
-            <li class="nav-item">
-               <a href="{{ url('/dashboard-admin-sneakcare/user') }}" class="nav-link">
-                  <i class="nav-icon fas fa-file-contract"></i>
-                  <p>
-                     Laporan 
-                  </p>
+            <li class="nav-item has-treeview">
+               <a href="#" class="nav-link">
+               <i class="nav-icon fas fa-file-contract"></i>
+               <p>
+                  Laporan
+                  <i class="right fas fa-angle-left"></i>
+               </p>
                </a>
+               <ul class="nav nav-treeview">
+               <li class="nav-item">
+                  <a href="" class="nav-link">
+                     <i class="far fa-circle nav-icon"></i>
+                     <p>Tabel Laporan</p>
+                  </a>
+               </li>
+               <li class="nav-item">
+                  <a href="" class="nav-link">
+                     <i class="far fa-circle nav-icon"></i>
+                     <p>Grafik Laporan</p>
+                  </a>
+               </li>
+               </ul>
             </li>
             <li class="nav-item">
                <a href="" class="nav-link">

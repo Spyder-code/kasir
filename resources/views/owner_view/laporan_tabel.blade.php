@@ -1,9 +1,6 @@
 @extends('owner_view.layouts.main')
 
 @section('content')
-@extends('owner_view.layouts.main')
-
-@section('content')
 <div class="content-wrapper">
    <div class="content-header">
       <div class="container-fluid">
@@ -20,30 +17,25 @@
          </div>  
          <div class="content mt-4">
             {{-- Masukan konten disini --}}
-            <div class="row mb-3 mt-3 justify-content-center">
-               
-               <input type="date" name="" id="">
-               
-               <input type="date" name="" id="">
-            </div>
             <table class="table">
                <thead class="thead-dark">
                  <tr>
                    <th scope="col">No</th>
-                   <th scope="col">Nama</th>
-                   <th scope="col">Email</th>
-                   <th scope="col">Aksi</th>
+                   <th scope="col">Id Customer</th>
+                   <th scope="col">Nama Produk</th>
+                   <th scope="col">Nama Kasir</th>
+                   <th scope="col">Jumlah</th>
+                   <th scope="col">Total Harga</th>
                  </tr>
                </thead>
                <tbody>
                   <tr>
                      <th scope="row">1</th>
-                     <td>Ilham Akhyar</td>
-                     <td>ilham@gmail.com</td>
-                     <td>
-                        <button class="btn btn-sm btn-warning">Edit</button>
-                        <button class="btn btn-sm btn-danger">Hapus</button>
-                     </td>
+                     <td>1</td>
+                     <td>Susu Murni</td>
+                     <td>ilham</td>
+                     <td>5</td>
+                     <td>12000000</td>
                    </tr>
                </tbody>
              </table>
@@ -54,7 +46,5 @@
 
    </div>
 </div>
-
 @endsection
 
-@endsection
