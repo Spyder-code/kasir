@@ -141,11 +141,11 @@
          <div class="modal-content">
             <div class="modal-header">
                <h5 class="modal-title" id="exampleModalLabel">Detail Gambar Produk</h5>
-               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <button type="button" class="close" id="bTutupDetail" data-dismiss="modal" aria-label="Close">
                <span aria-hidden="true">&times;</span>
                </button>
             </div>
-            <div class="modal-body"></div>
+            <div class="modal-body" id="bModalDetail"></div>
             <div class="modal-footer">
                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
             </div>
@@ -165,11 +165,11 @@
          $.get("{{ URL::to('/') }}/owner/produk/show/"+nilai, function( response ) {
             let data = JSON.parse(response)
             console.log(data.image);
-            if($(".modal-body").has("img").length){
-               $(".modal-body").empty();
-               $('<img/>').attr({src:'{{ URL::to('/') }}/owner/images/'+ data.image, class:'img-fluid'}).appendTo(".modal-body");
+            if($("#bModalDetail").has("img").length){
+               $("#bModalDetail").empty();
+               $('<img/>').attr({src:'{{ URL::to('/') }}/owner/images/'+ data.image, class:'img-fluid'}).appendTo("#bModalDetail");
             } else {
-               $('<img/>').attr({src:'{{ URL::to('/') }}/owner/images/'+ data.image, class:'img-fluid'}).appendTo(".modal-body");
+               $('<img/>').attr({src:'{{ URL::to('/') }}/owner/images/'+ data.image, class:'img-fluid'}).appendTo("#bModalDetail");
             }
          });
       });

@@ -146,8 +146,14 @@ class OwnerController extends Controller
    // -------------------------------------- Laporan
    public function indexLaporanTabel()
    {
-      $transaksi = Transaction::all();
-      return view('owner_view.laporan_tabel', ['transaksi' => $transaksi]);
+      // $transaksi = Transaction::all();
+      // return view('owner_view.laporan_tabel', ['transaksi' => $transaksi]);
+      return view('owner_view.laporan_tabel');
+   }
+
+   public function indexLaporanGrafik()
+   {
+     return view('owner_view.laporan_grafik');
    }
 
    // -------------------------------------- Kategori

@@ -37,6 +37,7 @@ Route::group(['middleware' => ['Owner']], function () {
    Route::get('/owner/kategori/destroy/{id}', 'OwnerController@destroyKategori')->name('kategori.destroy');
    // laporan
    Route::get('/owner/laporantabel', 'OwnerController@indexLaporanTabel')->name('laporan.tabel');
+   Route::get('/owner/laporangrafik', 'OwnerController@indexLaporanGrafik')->name('laporan.grafik');
 });
 
 Route::group(['middleware' => ['Kasir']], function () {

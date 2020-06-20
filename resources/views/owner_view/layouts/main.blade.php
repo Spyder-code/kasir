@@ -8,6 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{ asset('owner/plugins/fontawesome-free/css/all.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('owner/css/Chart.min.css') }}">
   <!-- Ionicons -->
   {{-- <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> --}}
   <!-- Tempusdominus Bbootstrap 4 -->
@@ -111,7 +112,7 @@
                </a>
             </li>
             <li class="nav-item">
-               <a href="{{ url('/dashboard-admin-sneakcare/admin') }}" class="nav-link">
+               <a href="{{ route('produk') }}" class="nav-link">
                   <i class="nav-icon fas fa-boxes"></i>
                   <p>
                      Produk 
@@ -119,7 +120,7 @@
                </a>
             </li>
             <li class="nav-item">
-               <a href="{{ url('/dashboard-admin-sneakcare/admin') }}" class="nav-link">
+               <a href="{{ route('kategori') }}" class="nav-link">
                   <i class="nav-icon fas fa-cart-arrow-down"></i>
                   <p>
                      Kategori 
@@ -136,13 +137,13 @@
                </a>
                <ul class="nav nav-treeview">
                <li class="nav-item">
-                  <a href="" class="nav-link">
+                  <a href="{{ route('laporan.tabel') }}" class="nav-link">
                      <i class="far fa-circle nav-icon"></i>
                      <p>Tabel Laporan</p>
                   </a>
                </li>
                <li class="nav-item">
-                  <a href="" class="nav-link">
+                  <a href="{{ route('laporan.grafik') }}" class="nav-link">
                      <i class="far fa-circle nav-icon"></i>
                      <p>Grafik Laporan</p>
                   </a>
@@ -211,15 +212,9 @@
   {{-- <script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script> --}}
   <!-- AdminLTE App -->
   <script src="{{ asset('owner/js/adminlte.js') }}"></script>
+  <script src="{{ asset('owner/js/Chart.min.js') }}"></script>
   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
   {{-- <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script> --}}
   <!-- AdminLTE for demo purposes -->
   {{-- <script src="{{ asset('dist/js/demo.js') }}"></script> --}}
-  {{-- <script>
-   $.ajaxSetup({
-      headers: {
-         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      }
-   });
-  </script> --}}
   @yield('custom-script')
