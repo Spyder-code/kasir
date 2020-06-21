@@ -36,7 +36,7 @@
                <div class="input-group-prepend">
                  <span class="input-group-text" id="basic-addon1"><i class="fas fa-boxes"></i></span>
                </div>
-               <input type="text" id="search" class="form-control" placeholder="Cari Produk (berdasarkan nama)" name="keyword" autocomplete="off">
+               <input type="text" id="searchProduk" class="form-control" placeholder="Cari Produk (berdasarkan nama)" name="keyword" autocomplete="off">
             </div>
          </div>
          </form>
@@ -55,7 +55,7 @@
                    <th scope="col">Aksi</th>
                  </tr>
                </thead>
-               <tbody>
+               <tbody id="tBodyProduk">
                   @foreach ($produk as $prd)
                   <tr>
                     <th scope="row">{{ $loop->iteration }}</th>
@@ -160,11 +160,10 @@
 @section('custom-script')
 <script>
    $(document).ready(function(){
-      $( ".bDetailProduk" ).click(function() {
+      $( "#tBodyProduk" ).on("click", "button.bDetailProduk", function() {
          const nilai = $(this).val();
          $.get("{{ URL::to('/') }}/owner/produk/show/"+nilai, function( response ) {
-            let data = JSON.parse(response)
-            console.log(data.image);
+            const data = JSON.parse(response)
             if($("#bModalDetail").has("img").length){
                $("#bModalDetail").empty();
                $('<img/>').attr({src:'{{ URL::to('/') }}/owner/images/'+ data.image, class:'img-fluid'}).appendTo("#bModalDetail");
@@ -173,6 +172,60 @@
             }
          });
       });
+
+      $("#searchProduk").keyup(function(){
+         const nilai = $(this).val();
+         if(nilai) {
+            $.get("{{ URL::to('/') }}/owner/produk/search/"+nilai, function( response ) {
+               const data = JSON.parse(response);
+               let output;
+               $("#tBodyProduk").empty();
+               data.map((data, index) => {
+                  output += `
+                  <tr>
+                     <th scope="row">${index+1}</th>
+                     <td>${data.nama}</td>
+                     <td>${data.kategori}</td>
+                     <td>${data.harga}</td>
+                     <td>${data.expired}</td>
+                     <td><img src="{{ URL::to('/') }}/owner/images/${data.image}" style="max-width: 150px"></td>
+                     <td>
+                        <button class="btn btn-sm btn-primary bDetailProduk" value="${data.id}" data-toggle="modal" data-target="#modalDetail">Detail Gambar</button>
+                        <a href="{{ URL::to('/') }}/owner/produk/edit/${data.id}" class="btn btn-sm btn-warning">Edit</a>
+                        <a href="{{ URL::to('/') }}/owner/produk/destroy/${data.id}" class="btn btn-sm btn-danger text-white" onclick="return confirm('apakah kamu yakin menghapus produk ini?')">Hapus</a>
+                     </td>
+                  </tr>`;
+               })
+               $("#tBodyProduk").append(output);
+            });
+         } else {
+            $.get("{{ URL::to('/') }}/owner/produk/search/"+"0", function( response ) {
+               const data = JSON.parse(response);
+               let output;
+               $("#tBodyProduk").empty();
+               data.map((data, index) => {
+                  output += `
+                  <tr>
+                     <th scope="row">${index+1}</th>
+                     <td>${data.nama}</td>
+                     <td>${data.kategori}</td>
+                     <td>${data.harga}</td>
+                     <td>${data.expired}</td>
+                     <td><img src="{{ URL::to('/') }}/owner/images/${data.image}" style="max-width: 150px"></td>
+                     <td>
+                        <button class="btn btn-sm btn-primary bDetailProduk" value="${data.id}" data-toggle="modal" data-target="#modalDetail">Detail Gambar</button>
+                        <a href="{{ URL::to('/') }}/owner/produk/edit/${data.id}" class="btn btn-sm btn-warning">Edit</a>
+                        <a href="{{ URL::to('/') }}/owner/produk/destroy/${data.id}" class="btn btn-sm btn-danger text-white" onclick="return confirm('apakah kamu yakin menghapus produk ini?')">Hapus</a>
+                     </td>
+                  </tr>`;
+               })
+               $("#tBodyProduk").append(output);
+            });
+         }
+
+      });
+
+      
    })
 
 </script>

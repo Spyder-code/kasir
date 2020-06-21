@@ -104,7 +104,7 @@
                </a>
             </li>
             <li class="nav-item">
-               <a href="{{ url('/dashboard-admin-sneakcare/pesanan') }}" class="nav-link">
+               <a href="{{ route('user') }}" class="nav-link">
                   <i class="nav-icon fas fa-user-friends"></i>
                   <p>
                      User
@@ -151,7 +151,7 @@
                </ul>
             </li>
             <li class="nav-item">
-               <a href="" class="nav-link">
+               <a href="{{ route('logout') }}" class="nav-link" onclick="return confirm('apakah kamu yakin menghapus kategori ini?')">
                   <i class="nav-icon fas fa-sign-out-alt"></i>
                   <p>
                      Logout 

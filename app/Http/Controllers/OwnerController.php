@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use App\Category;
 use App\Product;
+use App\User;
 use App\Transaction;
 
 class OwnerController extends Controller
@@ -32,9 +34,80 @@ class OwnerController extends Controller
    }
 
    // -------------------------------------- User
-   public function destroyUser()
+   public function indexUser()
    {
+      $user = User::all()->where('level', '=', 2);
+      return view('owner_view.user', ['user' => $user]);
+   }
 
+   public function storeUser(Request $request)
+   {
+      try {
+         $request->validate([
+            'nama'         => 'required|max:255',
+            'email'        => 'required|email',
+            'password'     => 'required|confirmed|min:5'
+         ]);
+         $user = new User;
+         $user->name = $request->nama;   
+         $user->email = $request->email;   
+         $user->password = Hash::make($request->password);
+         $user->level = 2;  
+         $user->save();
+         return redirect()->route('user')->with('success', 'Data berhasil ditambahkan');
+      } catch (\Throwable $th) {
+         return redirect()->route('user')->with('error', 'Data gagal ditambahkan, pastikan data diisi dengan benar');
+      }
+   }
+
+   public function editUser($id)
+   {
+      $user = User::where('id', $id)->first();
+      return view('owner_view.edit_user', ['user' => $user]);
+   }
+
+   public function updateUser(Request $request, $id)
+   {
+      try {
+         if($request->password) {
+            $request->validate([
+               'nama'         => 'required|max:255',
+               'email'        => 'required|email',
+               'password'     => 'required|confirmed|min:5'
+            ]);
+            $user = User::find($id);
+            $user->name = $request->nama;   
+            $user->email = $request->email;   
+            $user->password = Hash::make($request->password);
+            $user->level = 2;  
+            $user->save();
+            return redirect()->route('user')->with('success', 'Data berhasil diperbarui');
+         } else {
+            $request->validate([
+               'nama'         => 'required|max:255',
+               'email'        => 'required|email',
+            ]);
+            $user = User::find($id);
+            $user->name = $request->nama;   
+            $user->email = $request->email;   
+            $user->level = 2;  
+            $user->save();
+            return redirect()->route('user')->with('success', 'Data berhasil diperbarui');
+         }
+      } catch (\Throwable $th) {
+         return redirect()->route('user')->with('error', 'Data gagal diperbarui!');
+      }
+   }
+
+   public function destroyUser($id)
+   {
+      try {
+         $user = User::find($id);
+         $user->delete();
+         return redirect()->route('user')->with('success', 'Data berhasil dihapus');
+      } catch (\Throwable $th) {
+         return redirect()->route('user')->with('error', 'Data gagal dihapus!');
+      }
    }
 
    // -------------------------------------- Produk
@@ -81,7 +154,7 @@ class OwnerController extends Controller
             return redirect()->route('produk')->with('error', 'Jangan lupa masukan gambar produk');
          } 
       } catch (\Throwable $th) {
-         return redirect()->route('produk')->with('error', 'Data gagal ditambahkan');
+         return redirect()->route('produk')->with('error', 'Data gagal ditambahkan, pastikan data diisi dengan benar');
       }
       
    }
@@ -128,7 +201,7 @@ class OwnerController extends Controller
             return redirect()->route('produk')->with('success', 'Data berhasil diperbarui');
          } 
       } catch (\Throwable $th) {
-         return redirect()->route('produk')->with('error', 'Data gagal diperbarui');
+         return redirect()->route('produk')->with('error', 'Data gagal diperbarui!');
       }
    }
 
@@ -141,6 +214,22 @@ class OwnerController extends Controller
       } catch (\Throwable $th) {
          return redirect()->route('produk')->with('error', 'Data gagal dihapus!');
       }
+   }
+
+   public function searchProduk($id)
+   {
+      if($id != "0"){
+         $produk = DB::table('products')
+                     ->join('categories', 'categories.id', '=', 'products.id_kategori')
+                     ->select('products.*', 'categories.nama as kategori')
+                     ->where('products.nama','like',"%".$id."%")
+                     ->get();
+         echo json_encode($produk);
+      } else {
+         $produk = DB::table('products')->get();
+         echo json_encode($produk);
+      }
+      // echo json_encode(array('produk' => $produk));
    }
 
    // -------------------------------------- Laporan
@@ -174,7 +263,7 @@ class OwnerController extends Controller
          $category->save();
          return redirect()->route('kategori')->with('success', 'Data berhasil ditambahkan');
       } catch (\Throwable $th) {
-         return redirect()->route('kategori')->with('error', 'Data gagal ditambahkan!');
+         return redirect()->route('kategori')->with('error', 'Data gagal ditambahkan, pastikan data di isi dengan benar');
       }
    }
 

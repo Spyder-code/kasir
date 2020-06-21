@@ -22,6 +22,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['Owner']], function () {
    Route::get('/owner/user', 'OwnerController@index');
+   // User
+   Route::get('/owner/user', 'OwnerController@indexUser')->name('user');
+   Route::post('/owner/user/store', 'OwnerController@storeUser')->name('user.store');
+   Route::get('/owner/user/edit/{id}', 'OwnerController@editUser')->name('user.edit');
+   Route::post('/owner/user/update/{id}', 'OwnerController@updateUser')->name('user.update');
+   Route::get('/owner/user/destroy/{id}', 'OwnerController@destroyUser')->name('user.destroy');
    // produk
    Route::get('/owner/produk', 'OwnerController@indexProduk')->name('produk');
    Route::post('/owner/produk/store', 'OwnerController@storeProduk')->name('produk.store');
@@ -29,6 +35,7 @@ Route::group(['middleware' => ['Owner']], function () {
    Route::get('/owner/produk/edit/{id}', 'OwnerController@editProduk')->name('produk.edit');
    Route::post('/owner/produk/update/{id}', 'OwnerController@updateProduk')->name('produk.update');
    Route::get('/owner/produk/destroy/{id}', 'OwnerController@destroyProduk')->name('produk.destroy');
+   Route::get('/owner/produk/search/{id}', 'OwnerController@searchProduk')->name('produk.search');
    // kategori
    Route::get('/owner/kategori', 'OwnerController@indexKategori')->name('kategori');
    Route::post('/owner/kategori/store', 'OwnerController@storeKategori')->name('kategori.store');
@@ -44,7 +51,7 @@ Route::group(['middleware' => ['Kasir']], function () {
     Route::get('/kasir', 'KasirController@index');
 });
 
-Route::get('/logout', 'Auth\LoginController@logout');
+Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 
 // Route::view('/lihat', 'owner_view.user');
 // Route::view('/lihat2', 'owner_view.produk');
