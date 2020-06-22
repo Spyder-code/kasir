@@ -226,7 +226,10 @@ class OwnerController extends Controller
                      ->get();
          echo json_encode($produk);
       } else {
-         $produk = DB::table('products')->get();
+         $produk = DB::table('products')
+                  ->join('categories', 'categories.id', '=', 'products.id_kategori')
+                  ->select('products.*', 'categories.nama as kategori')
+                  ->get();
          echo json_encode($produk);
       }
       // echo json_encode(array('produk' => $produk));
