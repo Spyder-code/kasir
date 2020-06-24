@@ -1,4 +1,4 @@
-@extends('owner_view.layouts.main')
+@extends('layouts.owner')
 
 @section('content')
 <div class="content-wrapper">
@@ -18,7 +18,7 @@
          <!-- content -->
          <hr>
          <div class="content ml-3">
-            <div class="row pt-3"> 
+            <div class="row pt-3">
                <div class="col-md-6">
                   <h3 class="font-weight-bold">Nama Produk</h3>
                   <p>asa</p>

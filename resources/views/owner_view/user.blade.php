@@ -1,4 +1,4 @@
-@extends('owner_view.layouts.main')
+@extends('layouts.owner')
 
 @section('content')
 <div class="content-wrapper">
@@ -22,40 +22,44 @@
              <span aria-hidden="true">&times;</span>
            </button>
          </div>
-         @elseif (session('error')) 
+         @elseif (session('error'))
          <div class="alert alert-warning alert-dismissible fade show mt-4" role="alert">
             {{ session('error') }}
            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
              <span aria-hidden="true">&times;</span>
            </button>
          </div>
-         @endif   
-         <button class="btn btn-primary" data-toggle="modal" data-target="#modalTambahUser">Tambah User Baru</button>         
+         @endif
+         <button class="btn btn-primary" data-toggle="modal" data-target="#modalTambahUser">Tambah User Baru</button>
          <div class="content mt-2">
             {{-- Masukan konten disini --}}
-            <table class="table">
-               <thead class="thead-dark">
-                 <tr>
-                   <th scope="col">No</th>
-                   <th scope="col">Nama</th>
-                   <th scope="col">Email</th>
-                   <th scope="col">Aksi</th>
-                 </tr>
-               </thead>
-               <tbody>
-                  @foreach ($user as $us)
-                  <tr>
-                    <th scope="row">{{ $loop->iteration }}</th>
-                    <td>{{ $us->name }}</td>
-                    <td>{{ $us->email }}</td>
-                    <td>
-                     <a href="{{ route('user.edit', [$us->id]) }}" class="btn btn-sm btn-warning">Edit</a>
-                     <a href="{{ route('user.destroy', [$us->id]) }}" class="btn btn-sm btn-danger text-white" onclick="return confirm('apakah kamu yakin menghapus user ini?')">Hapus</a>
-                    </td>
-                  </tr>
-                   @endforeach
-               </tbody>
-             </table>
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Nama</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Aksi</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                           @foreach ($user as $us)
+                           <tr>
+                             <th scope="row">{{ $loop->iteration }}</th>
+                             <td>{{ $us->name }}</td>
+                             <td>{{ $us->email }}</td>
+                             <td>
+                              <a href="{{ route('user.edit', [$us->id]) }}" class="btn btn-sm btn-warning">Edit</a>
+                              <a href="{{ route('user.destroy', [$us->id]) }}" class="btn btn-sm btn-danger text-white" onclick="return confirm('apakah kamu yakin menghapus user ini?')">Hapus</a>
+                             </td>
+                           </tr>
+                            @endforeach
+                        </tbody>
+                      </table>
+                </div>
+            </div>
          </div>
       </div>
 
@@ -89,8 +93,8 @@
          </div>
          </div>
       </div>
-     
-      
+
+
 
    </div>
 </div>

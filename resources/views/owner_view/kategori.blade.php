@@ -1,4 +1,4 @@
-@extends('owner_view.layouts.main')
+@extends('layouts.owner')
 
 @section('content')
 <div class="content-wrapper">
@@ -22,39 +22,41 @@
              <span aria-hidden="true">&times;</span>
            </button>
          </div>
-         @elseif (session('error')) 
+         @elseif (session('error'))
          <div class="alert alert-warning alert-dismissible fade show mt-4" role="alert">
             {{ session('error') }}
            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
              <span aria-hidden="true">&times;</span>
            </button>
          </div>
-         @endif   
+         @endif
          <button class="btn btn-primary" data-toggle="modal" data-target="#modalTambahKategori">Tambah Kategori</button>
          <div class="content mt-2">
             {{-- Masukan konten disini --}}
-            <table class="table">
-               <thead class="thead-dark">
-                 <tr>
-                   <th scope="col">No</th>
-                   <th scope="col">Nama Kategori</th>
-                   <th scope="col">Aksi</th>
-                 </tr>
-               </thead>
-               <tbody>
-                  @foreach ($kategori as $ktg)
-                  <tr>
-                     <th scope="row">{{ $loop->iteration }}</th>
-                     <td>{{ $ktg->nama }}</td>
-                     <td>
-                        <input type="text" value="{{ $ktg->id }}" hidden>
-                        <a href="{{ route('kategori.edit', [$ktg->id]) }}" class="btn btn-sm btn-warning">Edit</a>
-                        <a href="{{ route('kategori.destroy', [$ktg->id]) }}" class="btn btn-sm btn-danger text-white" onclick="return confirm('apakah kamu yakin menghapus kategori ini?')">Hapus</a>
-                     </td>
-                  </tr>
-                  @endforeach
-               </tbody>
-             </table>
+            <div class="card">
+                <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Nama Kategori</th>
+                        <th scope="col">Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                       @foreach ($kategori as $ktg)
+                       <tr>
+                          <th scope="row">{{ $loop->iteration }}</th>
+                          <td>{{ $ktg->nama }}</td>
+                          <td>
+                             <input type="text" value="{{ $ktg->id }}" hidden>
+                             <a href="{{ route('kategori.edit', [$ktg->id]) }}" class="btn btn-sm btn-warning">Edit</a>
+                             <a href="{{ route('kategori.destroy', [$ktg->id]) }}" class="btn btn-sm btn-danger text-white" onclick="return confirm('apakah kamu yakin menghapus kategori ini?')">Hapus</a>
+                          </td>
+                       </tr>
+                       @endforeach
+                    </tbody>
+                  </table>
+            </div>
          </div>
       </div>
 

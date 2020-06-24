@@ -1,4 +1,4 @@
-@extends('owner_view.layouts.main')
+@extends('layouts.owner')
 
 @section('content')
 <div class="content-wrapper">

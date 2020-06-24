@@ -1,4 +1,4 @@
-@extends('owner_view.layouts.main')
+@extends('layouts.owner')
 
 @section('content')
 <div class="content-wrapper">
@@ -43,37 +43,39 @@
          <button class="btn btn-primary mt-2" data-toggle="modal" data-target="#modalTambahProduk">Tambah Produk Baru</button>
          <div class="content mt-2">
             {{-- Masukan konten disini --}}
-            <table class="table">
-               <thead class="thead-dark">
-                 <tr>
-                   <th scope="col">No</th>
-                   <th scope="col">Nama Produk</th>
-                   <th scope="col">Kategori</th>
-                   <th scope="col">Harga</th>
-                   <th scope="col">Expired</th>
-                   <th scope="col">Gambar</th>
-                   <th scope="col">Aksi</th>
-                 </tr>
-               </thead>
-               <tbody id="tBodyProduk">
-                  @foreach ($produk as $prd)
-                  <tr>
-                    <th scope="row">{{ $loop->iteration }}</th>
-                    <td>{{ $prd->nama }}</td>
-                    <td>{{ $prd->kategori }}</td>
-                    <td>{{ $prd->harga }}</td>
-                    <td>{{ $prd->expired }}</td>
-                    <td><img src="{{ URL::to('/') }}/owner/images/{{ $prd->image }}" style="max-width: 150px"></td>
-                    <td>
-                        <button class="btn btn-sm btn-primary bDetailProduk" value="{{ $prd->id }}" data-toggle="modal" data-target="#modalDetail">Detail Gambar</button>
-                        <a href="{{ route('produk.edit', [$prd->id]) }}" class="btn btn-sm btn-warning">Edit</a>
-                        <a href="{{ route('produk.destroy', [$prd->id]) }}" class="btn btn-sm btn-danger text-white" onclick="return confirm('apakah kamu yakin menghapus produk ini?')">Hapus</a>
-                    </td>
-                  </tr>
-                  @endforeach
+            <div class="card">
+                <table class="table teble-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Nama Produk</th>
+                        <th scope="col">Kategori</th>
+                        <th scope="col">Harga</th>
+                        <th scope="col">Expired</th>
+                        <th scope="col">Gambar</th>
+                        <th scope="col">Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tBodyProduk">
+                       @foreach ($produk as $prd)
+                       <tr>
+                         <th scope="row">{{ $loop->iteration }}</th>
+                         <td>{{ $prd->nama }}</td>
+                         <td>{{ $prd->kategori }}</td>
+                         <td>{{ $prd->harga }}</td>
+                         <td>{{ $prd->expired }}</td>
+                         <td><img src="{{ URL::to('/') }}/owner/images/{{ $prd->image }}" style="max-width: 150px"></td>
+                         <td>
+                             <button class="btn btn-sm btn-primary bDetailProduk" value="{{ $prd->id }}" data-toggle="modal" data-target="#modalDetail">Detail Gambar</button>
+                             <a href="{{ route('produk.edit', [$prd->id]) }}" class="btn btn-sm btn-warning">Edit</a>
+                             <a href="{{ route('produk.destroy', [$prd->id]) }}" class="btn btn-sm btn-danger text-white" onclick="return confirm('apakah kamu yakin menghapus produk ini?')">Hapus</a>
+                         </td>
+                       </tr>
+                       @endforeach
 
-               </tbody>
-             </table>
+                    </tbody>
+                  </table>
+            </div>
          </div>
       </div>
 
@@ -225,7 +227,7 @@
 
       });
 
-      
+
    })
 
 </script>

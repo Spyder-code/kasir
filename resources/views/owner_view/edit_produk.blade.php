@@ -1,4 +1,4 @@
-@extends('owner_view.layouts.main')
+@extends('layouts.owner')
 
 @section('content')
 <div class="content-wrapper">
@@ -14,7 +14,7 @@
                   <li class="breadcrumb-item active">Edit Produk</li>
                </ol>
             </div>
-         </div>  
+         </div>
          <div class="content mt-4">
             {{-- Masukan konten disini --}}
             <form action="{{ route('produk.update', [$produk->id]) }} }}" method="post" enctype="multipart/form-data">
@@ -60,7 +60,7 @@
             </form>
          </div>
       </div>
-     
+
    </div>
 </div>
 @endsection

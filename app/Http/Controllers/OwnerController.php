@@ -10,6 +10,7 @@ use App\Category;
 use App\Product;
 use App\User;
 use App\Transaction;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class OwnerController extends Controller
 {
@@ -24,13 +25,19 @@ class OwnerController extends Controller
 
    public function index()
    {
-       return view('owner_view.user');
+       return view('owner_view.index');
    }
 
    // -------------------------------------- Perusahaan
    public function showPerusahaan()
    {
+        return view('owner_view.perusahaan');
+   }
 
+   // -------------------------------------- Perusahaan
+   public function profile()
+   {
+        return view('owner_view.profile');
    }
 
    // -------------------------------------- User
@@ -49,10 +56,10 @@ class OwnerController extends Controller
             'password'     => 'required|confirmed|min:5'
          ]);
          $user = new User;
-         $user->name = $request->nama;   
-         $user->email = $request->email;   
+         $user->name = $request->nama;
+         $user->email = $request->email;
          $user->password = Hash::make($request->password);
-         $user->level = 2;  
+         $user->level = 2;
          $user->save();
          return redirect()->route('user')->with('success', 'Data berhasil ditambahkan');
       } catch (\Throwable $th) {
@@ -76,10 +83,10 @@ class OwnerController extends Controller
                'password'     => 'required|confirmed|min:5'
             ]);
             $user = User::find($id);
-            $user->name = $request->nama;   
-            $user->email = $request->email;   
+            $user->name = $request->nama;
+            $user->email = $request->email;
             $user->password = Hash::make($request->password);
-            $user->level = 2;  
+            $user->level = 2;
             $user->save();
             return redirect()->route('user')->with('success', 'Data berhasil diperbarui');
          } else {
@@ -88,9 +95,9 @@ class OwnerController extends Controller
                'email'        => 'required|email',
             ]);
             $user = User::find($id);
-            $user->name = $request->nama;   
-            $user->email = $request->email;   
-            $user->level = 2;  
+            $user->name = $request->nama;
+            $user->email = $request->email;
+            $user->level = 2;
             $user->save();
             return redirect()->route('user')->with('success', 'Data berhasil diperbarui');
          }
@@ -138,7 +145,10 @@ class OwnerController extends Controller
             'image'        => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
          ]);
          if($request->hasFile('image')){
-            $namaGambar = time().'.'.$request->image->extension();  
+            // \QrCode::size(500)
+            // ->format('png')
+            // ->generate('ItSolutionStuff.com', public_path('image/qrcode.png'));
+            $namaGambar = time().'.'.$request->image->extension();
             $request->image->move(public_path('owner/images'), $namaGambar);
             //---------------------------
             $produk = new Product;
@@ -152,11 +162,11 @@ class OwnerController extends Controller
             return redirect()->route('produk')->with('success', 'Data berhasil ditambahkan');
          } else {
             return redirect()->route('produk')->with('error', 'Jangan lupa masukan gambar produk');
-         } 
+         }
       } catch (\Throwable $th) {
          return redirect()->route('produk')->with('error', 'Data gagal ditambahkan, pastikan data diisi dengan benar');
       }
-      
+
    }
 
    public function editProduk($id)
@@ -177,7 +187,7 @@ class OwnerController extends Controller
             'image'        => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
          ]);
          if($request->hasFile('image')){
-            $namaGambar = time().'.'.$request->image->extension();  
+            $namaGambar = time().'.'.$request->image->extension();
             $request->image->move(public_path('owner/images'), $namaGambar);
             //---------------------------
             $produk = Product::find($id);
@@ -199,7 +209,7 @@ class OwnerController extends Controller
             $produk->barcode = $request->nama;
             $produk->save();
             return redirect()->route('produk')->with('success', 'Data berhasil diperbarui');
-         } 
+         }
       } catch (\Throwable $th) {
          return redirect()->route('produk')->with('error', 'Data gagal diperbarui!');
       }
