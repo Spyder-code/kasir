@@ -23,7 +23,7 @@
       <!-- partial:../../partials/_navbar.html -->
       <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-          <a class="navbar-brand brand-logo" href="../../index.html"><img src="" alt="logo" /></a>
+          <a class="navbar-brand brand-logo"><img src="" alt="logo" /></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-stretch">
           <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -35,7 +35,7 @@
                 <div class="input-group-prepend bg-transparent">
                   <i class="input-group-text border-0 mdi mdi-magnify"></i>
                 </div>
-                <input type="text" class="form-control bg-transparent border-0" placeholder="Search projects">
+                <input type="text" class="form-control bg-transparent border-0" placeholder="Cari...">
               </div>
             </form>
           </div>
@@ -102,7 +102,7 @@
             <li class="nav-item">
               <a class="nav-link" href="{{url('owner/profile')}}">
                 <span class="menu-title">Owner</span>
-                <i class="mdi mdi-contacts menu-icon"></i>
+                <i class="mdi mdi-account menu-icon"></i>
               </a>
             </li>
             <li class="nav-item">
@@ -114,26 +114,26 @@
             <li class="nav-item">
               <a class="nav-link" href="{{url('owner/user')}}">
                 <span class="menu-title">Kasir</span>
-                <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                <i class="mdi mdi-account-multiple menu-icon"></i>
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{url('owner/produk')}}">
                 <span class="menu-title">Produk</span>
-                <i class="mdi mdi-chart-bar menu-icon"></i>
+                <i class="mdi mdi-upload menu-icon"></i>
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{url('owner/kategori')}}">
                 <span class="menu-title">Kategori produk</span>
-                <i class="mdi mdi-table-large menu-icon"></i>
+                <i class="mdi mdi-format-list-bulleted menu-icon"></i>
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" data-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
                 <span class="menu-title">Laporan</span>
                 <i class="menu-arrow"></i>
-                <i class="mdi mdi-medical-bag menu-icon"></i>
+                <i class="mdi mdi-clipboard-outline menu-icon"></i>
               </a>
               <div class="collapse" id="general-pages">
                 <ul class="nav flex-column sub-menu">
@@ -182,6 +182,7 @@
     <script src="{{asset('owner/js/hoverable-collapse.js')}}"></script>
     <script src="{{asset('owner/js/misc.js')}}"></script>
     <script src="{{asset('owner/js/dashboard.js')}}"></script>
+    @yield('custom-script')
     <!-- endinject -->
     <!-- Custom js for this page -->
     <!-- End custom js for this page -->

@@ -15,11 +15,11 @@
                </ol>
             </div>
          </div>
-         <div class="content mt-4">
+         <div class="row mt-4">
             {{-- Masukan konten disini --}}
             <div class="card">
-                <table class="table table-hover">
-                    <thead>
+                <table class="table">
+                    <thead class="table-dark">
                       <tr>
                         <th scope="col">No</th>
                         <th scope="col">Kode transaksi</th>
@@ -40,7 +40,7 @@
                           <td>20000</td>
                           <td>10000</td>
                           <td>23 february 2020</td>
-                          <td><button class="btn btn-primary">Lihat detail</button></td>
+                          <td><button class="btn btn-sm btn-primary">Lihat detail</button></td>
                         </tr>
                     </tbody>
                   </table>
