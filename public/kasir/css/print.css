@@ -1,0 +1,22 @@
+@media print{
+    .container{
+        zoom: 130%;
+    }
+    @page {
+        margin: 25mm 25mm 25mm 25mm;
+    }
+
+    body * {
+        visibility: hidden;
+    }
+
+    #print, #print * {
+        visibility: visible;
+    }
+
+    .card-footer, .card-footer * {
+        visibility: hidden;
+    }
+
+
+}

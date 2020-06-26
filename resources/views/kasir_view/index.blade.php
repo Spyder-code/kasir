@@ -1,65 +1,54 @@
 @extends('layouts.kasir')
 @section('content')
-    <div class="row text-center mb-5 mt-3">
+    <div class="row text-center mb-2 mt-3">
         <div class="col">
-            <button class="btn btn-primary btn-rounded btn-lg">1</button>
-        </div>
-        <div class="col">
-            <hr>
-        </div>
-        <div class="col">
-            <button class="btn btn-primary btn-rounded btn-lg">2</button>
-        </div>
-        <div class="col">
-            <hr>
-        </div>
-        <div class="col">
-            <button class="btn btn-primary btn-rounded btn-lg">3</button>
+            <button class="btn btn-primary btn-rounded btn-lg" style="margin-top: 200px" id="mulai">New Transaction</button>
         </div>
     </div>
-    <div class="row mb-5 ml-5">
-        <div class="col col-sm-4 mt-3">
+    <div class="row mb-5 ml-5" id="menu">
+        <div class="col col-sm-6">
             <div class="card">
                 <h2 class="card-title text-center mt-5">Produk</h2>
                 <div class="row">
-                    <div class="col col-12">
-                        <form action="post">
-                            @csrf
+                    <div class="col col-6">
+                        <form id="formTambah">
+                            <input type="hidden" name="idCustomer" id="idCustomer">
+                            <input type="hidden" name="idProduct" id="idProduct">
                             <div class="form-group mr-3 ml-3">
                                 <label for="kode">Kode produk</label>
-                                <input type="text" name="kode" id="kode" class="form-control text-center" autofocus style="border-color: rgb(89, 185, 241)">
+                                <input type="text" name="kode" id="kode" class="form-control text-center" autofocus style="border-color: rgb(153, 214, 250);text-transform: uppercase;" >
                             </div>
-                            <div class="form-group mr-3 ml-3">
+                            <div class="form-group mr-3 ml-3" id="ket1">
                                <div class="row">
                                     <div class="col">
-                                        <label for="kode">Nama produk</label>
-                                        <input type="text" disabled name="kode" id="kode" class="form-control text-center" autofocus style="border-color: rgb(89, 185, 241)">
+                                        <label for="nama">Nama produk</label>
+                                        <input type="text" disabled name="nama" id="nama" class="form-control text-center" autofocus style="border-color: rgb(89, 185, 241)">
                                     </div>
                                     <div class="col">
-                                        <label for="kode">Harga</label>
-                                        <input type="text" disabled name="kode" id="kode" class="form-control text-center" autofocus style="border-color: rgb(89, 185, 241)">
+                                        <label for="harga">Harga</label>
+                                        <input type="text" disabled name="harga" id="harga" class="form-control text-center" autofocus style="border-color: rgb(89, 185, 241)">
                                     </div>
                                </div>
                             </div>
-                            <div class="form-group mr-3 ml-3">
-                                <label for="kode">Jumlah</label>
-                                <input type="number" min="1" value="1" name="kode" id="kode" class="form-control text-center" autofocus style="border-color: rgb(89, 185, 241)">
+                            <div class="form-group mr-3 ml-3" id="ket2">
+                                <label for="jumlah">Jumlah</label>
+                                <input type="number" min="1" value="1" name="jumlah" id="jumlah" class="form-control text-center" autofocus style="border-color: rgb(89, 185, 241)">
                             </div>
-                            <div class="form-group mr-3 ml-3">
-                                <label for="kode">Sub-total (Rp)</label>
-                                <input type="number" disabled min="1" value="1" name="kode" id="kode" class="form-control text-center" autofocus style="border-color: rgb(89, 185, 241)">
+                            <div class="form-group mr-3 ml-3" id="ket3">
+                                <label for="total">Sub-total (Rp)</label>
+                                <input type="number" disabled min="1" value="1" name="total" id="total" class="form-control text-center" autofocus style="border-color: rgb(89, 185, 241)">
                             </div>
-                            <button type="submit" class="btn btn-success ml-2 mb-3 mr-2 d-block" style="width:95%">Tambah</button>
+                            <button type="button" id="tambah" class="btn btn-success ml-2 mb-3 mr-2 d-block" style="width:95%">Tambah</button>
                         </form>
                     </div>
-                    {{-- <div class="col col-sm-6">
+                    <div class="col col-sm-6">
                         <label for="barcode">Barcode Scanner</label>
-                        <img src="{{asset('image/green.jpg')}}" class="img-thumbnail mr-2">
-                    </div> --}}
+                        <img src="{{asset('image/green.jpg')}}" width="300" height="200" class="mb-3">
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col col-sm-5 mt-3">
+        <div class="col col-sm-6 mt-3">
             <div class="card">
                 <h2 class="card-title text-center mt-5">Transaksi</h2>
                     <div class="table-responsive">
@@ -74,57 +63,227 @@
                                 <th>Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                <td>1</td>
-                                <td>Jacob</td>
-                                <td>1000</td>
-                                <td>2</td>
-                                <td class="text-danger"> 28.76% <i class="mdi mdi-arrow-down"></i></td>
-                                <td><a class="btn btn-danger btn-rounded btn-sm text-light">Hapus</a></td>
-                                </tr>
-                                <tr>
-                                <td>2</td>
-                                <td>Messsy</td>
-                                <td>1000</td>
-                                <td>2</td>
-                                <td class="text-danger"> 21.06% <i class="mdi mdi-arrow-down"></i></td>
-                                <td><a class="btn btn-danger btn-rounded btn-sm text-light">Hapus</a></td>
-                                </tr>
-                                <tr>
-                                <td>3</td>
-                                <td>John</td>
-                                <td>1000</td>
-                                <td>2</td>
-                                <td class="text-danger"> 35.00% <i class="mdi mdi-arrow-down"></i></td>
-                                <td><a class="btn btn-danger btn-rounded btn-sm text-light">Hapus</a></td>
-                                </tr>
+                            <tbody id="result">
+
                             </tbody>
                         </table>
                 </div>
                 <div class="card-footer">
-                    <h4>Harga total : Rp.100.000</h4>
+                    <div class="d-inline ml-5">Harga total: Rp. <div class="hargaTotal d-inline"></div></div>
+                    <button type="button" class="btn btn-primary p-3 ml-5" data-toggle="modal" data-target="#modalBayar" style="width: 300px">
+                        Bayar
+                    </button>
                 </div>
             </div>
         </div>
-        <div class="col col-sm-3 mt-3">
-            <div class="card">
-                <h4 class="card-title mt-5 text-center">Pembayaran</h4>
-                <form action="post">
-                    @csrf
-                    <ul class="list-arrow ml-2">
-                        <li>Total pembayaran : <div class="d-inline ml-5">Rp.100.000 </div></li>
-                        <li>Uang
-                                <div class="form-group ml-3 mr-3">
-                                    <input type="text" name="uang" id="uang" class="form-control ">
-                                </div>
-                        </li>
-                        <li>Kembalian : <div class="d-inline ml-5">Rp.100.000 </div></li>
-                    </ul>
-                    <hr>
-                    <button type="submit" class="btn btn-primary float-right mb-2 mr-2 d-block">Bayar</button>
-                </form>
-            </div>
-        </div>
     </div>
+
+    {{-- Modal --}}
+    <!-- Button trigger modal -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="modalBayar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Pembayaran</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form action="{{url('kasir/bayar')}}" method="POST">
+                @csrf
+                <input type="hidden" id="totalPembayaran" name="totalPembayaran">
+                <input type="hidden" id="customerId" name="idCustomer">
+                <ul class="list-arrow ml-2">
+                    <li>Total pembayaran : Rp.<div class="d-inline hargaTotal"></div></li>
+                    <li>Uang
+                            <div class="form-group ml-3 mr-3">
+                                <input type="number" name="uang" id="uang" class="form-control ">
+                            </div>
+                    </li>
+                    <li>Kembalian : <div class="d-inline ml-5">Rp. <div class="kembalian d-inline"></div></div></li>
+                </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success">Bayar</button>
+        </div>
+    </form>
+      </div>
+    </div>
+  </div>
+
+    <script>
+        $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
+$(function(){
+
+    $('#modalBayar').on('shown.bs.modal', function () {
+    $('#uang').trigger('focus')
+})
+    $('#ket1').hide();
+    $('#menu').hide();
+    $('#ket2').hide();
+    $('#ket3').hide();
+    $('#tambah').hide();
+    $('#mulai').on('click',function(){
+        $.ajax({
+            url:"{{url('kasir/addCustomer')}}",
+            type:"POST",
+            success:function (data) {
+                $('#idCustomer').val(data);
+                $('#customerId').val(data);
+            }
+        });
+
+        $('#menu').show();
+        $('#kode').focus();
+        $(this).hide();
+    });
+
+    $('#kode').keyup(function(){
+        var kode = $(this).val();
+        $.ajax({
+            url:"{{url('kasir/kode')}}",
+            type:"POST",
+            data:{kode:kode},
+            success:function (data) {
+                if(kode==""){
+                    $('#ket1').hide();
+                    $('#ket2').hide();
+                    $('#ket3').hide();
+                    $('#jumlah').val(1);
+                }else{
+                    $('#tambah').show();
+                    $('#ket1').show();
+                    $('#ket2').show();
+                    $('#ket3').show();
+                    $('#nama').val(data[0].nama);
+                    $('#idProduct').val(data[0].id);
+                    $('#harga').val(data[0].harga);
+                    $('#total').val(data[0].harga);
+                    var harga =  $('#harga').val();
+                    $('#jumlah').change(function(){
+                        var jumlah = $('#jumlah').val();
+                        var total = jumlah * harga;
+                        $('#total').val(total);
+                    });
+                    $('#jumlah').keyup(function(){
+                        var jumlah = $('#jumlah').val();
+                        var total = jumlah * harga;
+                        $('#total').val(total);
+                    });
+                }
+            }
+        })
+    });
+
+    $('#tambah').on('click',function(){
+        var idCustomer = $('#idCustomer').val();
+        var idProduct = $('#idProduct').val();
+        var jumlah = $('#jumlah').val();
+        var total = $('#total').val();
+
+        $.ajax({
+            url:"{{url('kasir/addTransaksi')}}",
+            type:"POST",
+            data:{idCustomer:idCustomer,idProduct:idProduct,jumlah:jumlah,total:total},
+            success:function (data) {
+                console.log("tambah");
+
+                // $('#result').append(data);
+            }
+        });
+
+        $('#formTambah')[0].reset();
+        $('#kode').focus();
+        $('#ket1').hide();
+        $('#ket2').hide();
+        $('#ket3').hide();
+        fetch();
+
+    });
+
+    $(document).on('click', '.delete', function(){
+        var id = $(this).attr("id");
+        console.log(id);
+
+        if(confirm("Are you sure you want to delete this records?"))
+        {
+        $.ajax({
+            url:"{{ url('kasir/delete') }}",
+            method:"POST",
+            data:{id:id},
+            success:function(data)
+            {
+                console.log("terhapus");
+
+            fetch();
+            }
+        });
+        }
+    });
+
+    function fetch(){
+        var idCustomer = $('#idCustomer').val();
+        $.ajax({
+            url:"{{url('kasir/fetchData')}}",
+            type:"POST",
+            dataType:"json",
+            data:{idCustomer:idCustomer},
+            success:function (data) {
+                var a = data.length + 1;
+                var b = parseInt(a);
+
+                var html ='';
+                html +='<tr>';
+                html +='<td></td>';
+                html +='<td></td>';
+                html += '<td></td>';
+                html += '<td></td>';
+                html += '<td></td>';
+                html += '<td></td></tr>';
+                for(var count=1; count < b; count++)
+                {
+                html +='<tr>';
+                html +='<td>'+count+'</td>';
+                html +='<td>'+data[count-1].nama+'</td>';
+                html += '<td>'+data[count-1].harga+'</td>';
+                html += '<td>'+data[count-1].jumlah+'</td>';
+                html += '<td>'+data[count-1].total_harga+'</td>';
+                html += '<td><button type="button" class="btn btn-danger btn-xs delete" id="'+data[count-1].id+'">Delete</button></td></tr>';
+                }
+                $('tbody').html(html);
+            }
+        });
+
+        $.ajax({
+            url:"{{url('kasir/fetchHarga')}}",
+            type:"POST",
+            data:{idCustomer:idCustomer},
+            success:function (data) {
+                $('.hargaTotal').html(data);
+                $('#totalPembayaran').val(data);
+
+            }
+        });
+    }
+
+    $('#uang').keyup(function(){
+        var uang = $(this).val();
+        var totalPembayaran = $('#hargaTotal').html();
+        var hasil = uang - totalPembayaran;
+        $('.kembalian').html(hasil);
+
+    });
+
+    });
+
+    </script>
 @endsection

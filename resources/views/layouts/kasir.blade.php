@@ -9,13 +9,16 @@
   <!-- base:css -->
   <link rel="stylesheet" href="{{asset('kasir/vendors/mdi/css/materialdesignicons.min.css')}}">
   <link rel="stylesheet" href="{{asset('kasir/vendors/base/vendor.bundle.base.css')}}">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- endinject -->
   <!-- plugin css for this page -->
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="{{asset('kasir/css/style.css')}}">
+  <link rel="stylesheet" href="{{asset('kasir/css/print.css')}}">
   <!-- endinject -->
   <link rel="shortcut icon" href="{{asset('kasir/images/favicon.png')}}" />
+  <script src="{{asset('js/jquery-3.4.1.min.js')}}"></script>
 </head>
 
 <body>
@@ -61,31 +64,38 @@
           </div>
         </div>
       </nav>
-      <nav class="bottom-navbar bg-info">
+      <nav class="bottom-navbar bg-light">
         <div class="container">
             <ul class="nav page-navigation">
-              <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+              <li class="nav-item">
+                <a class="nav-link" href="{{url('kasir/pembayaran')}}">
                   <i class="mdi mdi-file-document-box menu-icon"></i>
                   <span class="menu-title">Pembayaran</span>
                 </a>
               </li>
               <li class="nav-item">
-                  <a href="pages/forms/basic_elements.html" class="nav-link">
+                  <a href="{{url('kasir/produk')}}" class="nav-link">
                     <i class="mdi mdi-chart-areaspline menu-icon"></i>
                     <span class="menu-title">Product</span>
                     <i class="menu-arrow"></i>
                   </a>
               </li>
               <li class="nav-item">
-                  <a href="pages/charts/chartjs.html" class="nav-link">
-                    <i class="mdi mdi-finance menu-icon"></i>
-                    <span class="menu-title">Ganti password</span>
+                  <a href="{{url('kasir/transaksi')}}" class="nav-link">
+                    <i class="mdi mdi-chart-areaspline menu-icon"></i>
+                    <span class="menu-title">Transaksi</span>
                     <i class="menu-arrow"></i>
                   </a>
               </li>
               <li class="nav-item">
-                  <a href="pages/charts/chartjs.html" class="nav-link">
+                  <a href="{{url('kasir/profile')}}" class="nav-link">
+                    <i class="mdi mdi-finance menu-icon"></i>
+                    <span class="menu-title">Profile</span>
+                    <i class="menu-arrow"></i>
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a href="{{url('logout')}}" class="nav-link">
                     <i class="mdi mdi-finance menu-icon"></i>
                     <span class="menu-title">Logout</span>
                     <i class="menu-arrow"></i>
@@ -124,11 +134,13 @@
   </div>
   <!-- container-scroller -->
   <!-- base:js -->
-  <script src="{{asset('kasir/vendors/base/vendor.bundle.base.js')}}"></script>
+  {{-- <script src="{{asset('kasir/vendors/base/vendor.bundle.base.js')}}"></script> --}}
   <!-- endinject -->
   <!-- Plugin js for this page-->
   <!-- End plugin js for this page-->
   <!-- inject:js -->
+    <script src="{{asset('js/popper.min.js')}}"></script>
+    <script src="{{asset('js/bootstrap.min.js')}}"></script>
   <script src="{{asset('kasir/js/template.js')}}"></script>
   <!-- endinject -->
   <!-- plugin js for this page -->

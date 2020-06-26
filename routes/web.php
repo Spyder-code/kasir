@@ -52,7 +52,20 @@ Route::group(['middleware' => ['Owner']], function () {
 });
 
 Route::group(['middleware' => ['Kasir']], function () {
-    Route::get('/home/kasir', 'KasirController@index');
+    Route::get('/kasir/pembayaran', 'KasirController@index');
+    Route::get('/kasir/transaksi', 'KasirController@transaksi');
+    Route::get('/kasir/produk', 'KasirController@produk');
+    Route::get('/kasir/profile', 'KasirController@profile');
+    Route::get('/kasir/transaksi/{id}', 'KasirController@detailTransaksi');
+    Route::post('/kasir/kode', 'KasirController@kode');
+    Route::post('/kasir/addCustomer', 'KasirController@addCustomer');
+    Route::post('/kasir/addTransaksi', 'KasirController@addTransaksi');
+    Route::post('/kasir/fetchHarga', 'KasirController@fetchHarga');
+    Route::post('/kasir/fetchData', 'KasirController@fetchData');
+    Route::post('/kasir/delete', 'KasirController@delete');
+    Route::post('/kasir/bayar', 'KasirController@bayar');
+    Route::post('/kasir/cari', 'KasirController@cari');
+    Route::post('/kasir/cariTransaksi', 'KasirController@cariTransaksi');
 });
 
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
