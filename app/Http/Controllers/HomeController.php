@@ -27,7 +27,7 @@ class HomeController extends Controller
         $level = Auth::getUser()->level;
         $id = Auth::getUser()->id;
         if ($level == 1) {
-            return redirect('/owner/user');
+            return redirect('/owner/perusahaan');
         } else if ($level == 2) {
             return redirect('/home/kasir');
         }

@@ -30,12 +30,12 @@
            </button>
          </div>
          @endif
-         <button class="btn btn-primary" data-toggle="modal" data-target="#modalTambahKategori">Tambah Kategori</button>
+         <button class="btn btn-primary" data-toggle="modal" data-target="#modalTambahKategori">Tambah Kategori Baru</button>
          <div class="content mt-2">
             {{-- Masukan konten disini --}}
             <div class="card">
-                <table class="table table-hover">
-                    <thead>
+                <table class="table">
+                    <thead class="thead-dark">
                       <tr>
                         <th scope="col">No</th>
                         <th scope="col">Nama Kategori</th>

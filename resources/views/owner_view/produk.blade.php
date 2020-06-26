@@ -30,22 +30,15 @@
            </button>
          </div>
          @endif
-         <form action="" method="post">
-         <div class="content mt-4">
-            <div class="input-group mb-3">
-               <div class="input-group-prepend">
-                 <span class="input-group-text" id="basic-addon1"><i class="fas fa-boxes"></i></span>
-               </div>
-               <input type="text" id="searchProduk" class="form-control" placeholder="Cari Produk (berdasarkan nama)" name="keyword" autocomplete="off">
-            </div>
+         <div class="mb-4">
+            <input type="text" id="searchProduk" class="form-control" placeholder="Cari Produk (berdasarkan nama)" name="keyword" autocomplete="off">
          </div>
-         </form>
          <button class="btn btn-primary mt-2" data-toggle="modal" data-target="#modalTambahProduk">Tambah Produk Baru</button>
          <div class="content mt-2">
             {{-- Masukan konten disini --}}
             <div class="card">
                 <table class="table teble-hover">
-                    <thead>
+                    <thead class="thead-dark">
                       <tr>
                         <th scope="col">No</th>
                         <th scope="col">Nama Produk</th>
@@ -120,15 +113,15 @@
                      </div>
                      <input name="image" type="file" onchange="loadFile(event)" required>
                      <img id="output" class="img-thumbnail mt-3" />
-                    <script>
-                    var loadFile = function(event) {
-                        var output = document.getElementById('output');
-                        output.src = URL.createObjectURL(event.target.files[0]);
-                        output.onload = function() {
-                        URL.revokeObjectURL(output.src)
-                        }
-                    };
-                    </script>
+                     <script>
+                     var loadFile = function(event) {
+                           var output = document.getElementById('output');
+                           output.src = URL.createObjectURL(event.target.files[0]);
+                           output.onload = function() {
+                           URL.revokeObjectURL(output.src)
+                           }
+                     };
+                     </script>
                   </div>
                   <button type="submit" class="btn btn-primary float-right">Tambahkan Data</button>
                </form>
