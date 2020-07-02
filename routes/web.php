@@ -22,13 +22,18 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['Owner']], function () {
    Route::get('/owner/home','OwnerController@index');
+   // main dashboard
+   Route::get('owner/dashboard/show', 'OwnerController@indexDashboard');
+   Route::get('owner/dashboard/showgrafik', 'OwnerController@showDashboardGrafik');
    // perusahaan
    Route::get('/owner/perusahaan','OwnerController@indexPerusahaan')->name('perusahaan');
    Route::get('/owner/perusahaan/show','OwnerController@showPerusahaan')->name('perusahaan.show');
    Route::post('/owner/perusahaan/store', 'OwnerController@storePerusahaan')->name('perusahaan.store');
    Route::post('/owner/perusahaan/update/{id}', 'OwnerController@updatePerusahaan')->name('perusahaan.update');
    // profile
-   Route::get('/owner/profile','OwnerController@profile');
+   Route::get('/owner/profile','OwnerController@indexOwner')->name('owner');
+   Route::post('/owner/profile/update', 'OwnerController@updateOwner');
+   Route::post('/owner/profile/updatepassword', 'OwnerController@updatePassword');
    // user
    Route::get('/owner/user', 'OwnerController@indexUser')->name('user');
    Route::post('/owner/user/store', 'OwnerController@storeUser')->name('user.store');

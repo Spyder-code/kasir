@@ -11,6 +11,7 @@ use App\Product;
 use App\User;
 use App\Company;
 use App\Transaction;
+use App\Customer;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class OwnerController extends Controller
@@ -29,6 +30,20 @@ class OwnerController extends Controller
        return view('owner_view.index');
    }
 
+   // -------------------------------------- Main Dashboard
+   public function indexDashboard()
+   {
+      $customer = Customer::all();
+      $transaksi = Transaction::all();
+      echo json_encode(array('customer' => $customer, 'transaksi' => $transaksi));
+   }
+
+   public function showDashboardGrafik()
+   {
+      $transaksi = Transaction::all();
+      echo json_encode($transaksi);
+   }
+
    // -------------------------------------- Perusahaan
    public function indexPerusahaan()
    {
@@ -36,7 +51,7 @@ class OwnerController extends Controller
       if($result->first()) {
          return view('owner_view.perusahaan', ['perusahaan' => $result->first()]);
       } else {
-         return redirect()->route('perusahaan.show')->with('error', 'Kamu belum memasukan data perusahaan!, masukan data terlebih dahulu');
+         return redirect()->route('perusahaan.show')->with('error', 'Kamu belum memasukan data perusahaan, masukan data terlebih dahulu');
       }
    }
 
@@ -52,83 +67,119 @@ class OwnerController extends Controller
 
    public function updatePerusahaan(Request $request, $id)
    {
-      try {
-         if($request->nama) {
-            $request->validate([
-               'nama'         => 'required|max:255'
-            ]);
-            $perusahaan = Company::find($id);
-            $perusahaan->nama = $request->nama;
-            $perusahaan->save();
-            return redirect()->route('perusahaan')->with('success', 'Data nama perusahaan berhasil diperbarui');
-         } elseif($request->alamat) {
-            $request->validate([
-               'alamat'         => 'required|max:255'
-            ]);
-            $perusahaan = Company::find($id);
-            $perusahaan->alamat = $request->alamat;
-            $perusahaan->save();
-            return redirect()->route('perusahaan')->with('success', 'Data alamat perusahan berhasil diperbarui');
-         } elseif($request->nomor) {
-            $request->validate([
-               'nomor'         => 'required|numeric'
-            ]);
-            $perusahaan = Company::find($id);
-            $perusahaan->nomor = $request->nomor;
-            $perusahaan->save();
-            return redirect()->route('perusahaan')->with('success', 'Data nomor perusahaan berhasil diperbarui');
-         } elseif($request->image) {
-            $request->validate([
-               'image'         => 'required'
-            ]);
-            $namaGambar = time().'.'.$request->image->extension();
-            $request->image->move(public_path('owner/images'), $namaGambar);
-            //---------------------------
-            $perusahaan = Company::find($id);
-            $perusahaan->icon = $namaGambar;
-            $perusahaan->save();
-            return redirect()->route('perusahaan')->with('success', 'Data icon perusahan berhasil diperbarui'); 
-         }  else {
-            return redirect()->route('perusahaan')->with('warning', 'Data gagal diperbarui, pastikan data diisi dengan benar');
-         }
-         
-      } catch (\Throwable $th) {
-         return redirect()->route('produk')->with('warning', 'Data gagal diperbarui!');
+      if($request->nama) {
+         $request->validate([
+            'nama'         => 'required|max:255'
+         ]);
+         $perusahaan = Company::find($id);
+         $perusahaan->nama = $request->nama;
+         $perusahaan->save();
+         return redirect()->route('perusahaan')->with('success', 'Data nama perusahaan berhasil diperbarui');
+      } elseif($request->alamat) {
+         $request->validate([
+            'alamat'         => 'required|max:255'
+         ]);
+         $perusahaan = Company::find($id);
+         $perusahaan->alamat = $request->alamat;
+         $perusahaan->save();
+         return redirect()->route('perusahaan')->with('success', 'Data alamat perusahan berhasil diperbarui');
+      } elseif($request->nomor) {
+         $request->validate([
+            'nomor'         => 'required|numeric'
+         ]);
+         $perusahaan = Company::find($id);
+         $perusahaan->nomor = $request->nomor;
+         $perusahaan->save();
+         return redirect()->route('perusahaan')->with('success', 'Data nomor perusahaan berhasil diperbarui');
+      } elseif($request->hasFile('image')) {
+         $request->validate([
+            'image'        => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+         ]);
+         $namaGambar = time().'.'.$request->image->extension();
+         $request->image->move(public_path('owner/images'), $namaGambar);
+         //---------------------------
+         $perusahaan = Company::find($id);
+         $perusahaan->icon = $namaGambar;
+         $perusahaan->save();
+         return redirect()->route('perusahaan')->with('success', 'Data icon perusahan berhasil diperbarui'); 
+      }  else {
+         return redirect()->route('perusahaan');
       }
    }
 
    public function storePerusahaan(Request $request)
    {
-      try {
-         $request->validate([
-            'nama'         => 'required|max:255',
-            'alamat'       => 'required|max:255',
-            'nomor'        => 'required|numeric',
-            'image'        => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-         ]);
-         if($request->hasFile('image')){
-            $namaGambar = time().'.'.$request->image->extension();
-            $request->image->move(public_path('owner/images'), $namaGambar);
-            //---------------------------
-            $perusahaan = new Company;
-            $perusahaan->nama = $request->nama;
-            $perusahaan->alamat = $request->alamat;
-            $perusahaan->icon = $namaGambar;
-            $perusahaan->nomor = $request->nomor;
-            $perusahaan->save();
-            return redirect()->route('perusahaan')->with('success', 'Data berhasil ditambahkan');
-         } else {
-            return redirect()->route('perusahaan.store')->with('error', 'Pastikan data yg kamu isi benar');
-         }
-      } catch (\Throwable $th) {
-         return redirect()->route('perusahaan.store')->with('error', 'Data gagal ditambahkan, pastikan data diisi dengan benar');
+      $request->validate([
+         'nama'         => 'required|max:255',
+         'alamat'       => 'required|max:255',
+         'nomor'        => 'required|numeric',
+         'image'        => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+      ]);
+      if($request->hasFile('image')){
+         $namaGambar = time().'.'.$request->image->extension();
+         $request->image->move(public_path('owner/images'), $namaGambar);
+         //---------------------------
+         $perusahaan = new Company;
+         $perusahaan->nama = $request->nama;
+         $perusahaan->alamat = $request->alamat;
+         $perusahaan->icon = $namaGambar;
+         $perusahaan->nomor = $request->nomor;
+         $perusahaan->save();
+         return redirect()->route('perusahaan')->with('success', 'Data berhasil ditambahkan');
+      } else {
+         return redirect()->route('perusahaan.store');
       }
    }
 
-   // -------------------------------------- Perusahaan
-   public function profile()
+   // -------------------------------------- Owner
+   public function indexOwner()
    {
-        return view('owner_view.profile');
+      $owner = User::all()->where('level', '=', 1)->first();
+      return view('owner_view.profile', ['owner' => $owner]);
+   }
+
+   public function updateOwner(Request $request)
+   {
+      if($request->alamat) {
+         $request->validate([
+            'alamat'         => 'required|max:255'
+         ]);
+         $owner = DB::table('users')->where('level', '=', 1)->update(['alamat' => $request->alamat]);
+         return redirect()->route('owner')->with('success', 'Data alamat berhasil diperbarui');
+      } elseif($request->nomor) {
+         $request->validate([
+            'nomor'         => 'required|min:2|max:13|numeric'
+         ]);
+         $owner = DB::table('users')->where('level', '=', 1)->update(['no_telp' => $request->nomor]);
+         return redirect()->route('owner')->with('success', 'Data nomor berhasil diperbarui');
+      } elseif($request->hasFile('image')) {
+         $request->validate([
+            'image'         => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+         ]);
+         $namaGambar = time().'.'.$request->image->extension();
+         $request->image->move(public_path('owner/images'), $namaGambar);
+         //---------------------------
+         DB::table('users')->where('level', '=', 1)->update(['image' => $namaGambar]);
+         return redirect()->route('owner')->with('success', 'Data gambar berhasil diperbarui');
+      }  else {
+         return redirect()->route('owner');
+      }
+   }
+
+   public function updatePassword(Request $request)
+   {
+      $pass1 = $request->pass1;
+      $user = User::all()->where('level', '=', 1)->first();
+      if (Hash::check($pass1, $user->password)) {
+         $request->validate([
+            'pass2'         => 'required'
+         ]);
+         $newPassword = Hash::make($request->pass2);
+         DB::table('users')->where('level', '=', 1)->update(['password' => $newPassword]);
+         return redirect()->route('owner')->with('success', 'Password berhasil diperbarui');
+      } else {
+         return redirect()->route('owner')->with('fail', 'Pastikan password lama yang dimasukan benar');
+      }
    }
 
    // -------------------------------------- User
@@ -140,22 +191,18 @@ class OwnerController extends Controller
 
    public function storeUser(Request $request)
    {
-      try {
-         $request->validate([
-            'nama'         => 'required|max:255',
-            'email'        => 'required|max:255|email',
-            'password'     => 'required|confirmed|min:5'
-         ]);
-         $user = new User;
-         $user->name = $request->nama;
-         $user->email = $request->email;
-         $user->password = Hash::make($request->password);
-         $user->level = 2;
-         $user->save();
-         return redirect()->route('user')->with('success', 'Data berhasil ditambahkan');
-      } catch (\Throwable $th) {
-         return redirect()->route('user')->with('error', 'Data gagal ditambahkan, pastikan data diisi dengan benar');
-      }
+      $request->validate([
+         'nama'         => 'required|max:255',
+         'email'        => 'required|max:255|email',
+         'password'     => 'required|confirmed|min:5'
+      ]);
+      $user = new User;
+      $user->name = $request->nama;
+      $user->email = $request->email;
+      $user->password = Hash::make($request->password);
+      $user->level = 2;
+      $user->save();
+      return redirect()->route('user')->with('success', 'Data berhasil ditambahkan');
    }
 
    public function editUser($id)
@@ -166,34 +213,30 @@ class OwnerController extends Controller
 
    public function updateUser(Request $request, $id)
    {
-      try {
-         if($request->password) {
-            $request->validate([
-               'nama'         => 'required|max:255',
-               'email'        => 'required|max:255|email',
-               'password'     => 'required|confirmed|min:5'
-            ]);
-            $user = User::find($id);
-            $user->name = $request->nama;
-            $user->email = $request->email;
-            $user->password = Hash::make($request->password);
-            $user->level = 2;
-            $user->save();
-            return redirect()->route('user')->with('success', 'Data berhasil diperbarui');
-         } else {
-            $request->validate([
-               'nama'         => 'required|max:255',
-               'email'        => 'required|max:255|email',
-            ]);
-            $user = User::find($id);
-            $user->name = $request->nama;
-            $user->email = $request->email;
-            $user->level = 2;
-            $user->save();
-            return redirect()->route('user')->with('success', 'Data berhasil diperbarui');
-         }
-      } catch (\Throwable $th) {
-         return redirect()->route('user')->with('error', 'Data gagal diperbarui!');
+      if($request->password) {
+         $request->validate([
+            'nama'         => 'required|max:255',
+            'email'        => 'required|max:255|email',
+            'password'     => 'required|confirmed|min:5'
+         ]);
+         $user = User::find($id);
+         $user->name = $request->nama;
+         $user->email = $request->email;
+         $user->password = Hash::make($request->password);
+         $user->level = 2;
+         $user->save();
+         return redirect()->route('user')->with('success', 'Data berhasil diperbarui');
+      } else {
+         $request->validate([
+            'nama'         => 'required|max:255',
+            'email'        => 'required|max:255|email',
+         ]);
+         $user = User::find($id);
+         $user->name = $request->nama;
+         $user->email = $request->email;
+         $user->level = 2;
+         $user->save();
+         return redirect()->route('user')->with('success', 'Data berhasil diperbarui');
       }
    }
 
@@ -316,7 +359,7 @@ class OwnerController extends Controller
 
    public function searchProduk($id)
    {
-      if($id != "0"){
+      if($id != "zero"){
          $produk = DB::table('products')
                      ->join('categories', 'categories.id', '=', 'products.id_kategori')
                      ->select('products.*', 'categories.nama as kategori')
@@ -360,17 +403,13 @@ class OwnerController extends Controller
 
    public function storeKategori(Request $request)
    {
-      try {
-         $request->validate([
-            'nama'     => 'required|max:255'
-         ]);
-         $category = new Category;
-         $category->nama = $request->nama;
-         $category->save();
-         return redirect()->route('kategori')->with('success', 'Data berhasil ditambahkan');
-      } catch (\Throwable $th) {
-         return redirect()->route('kategori')->with('error', 'Data gagal ditambahkan, pastikan data di isi dengan benar');
-      }
+      $request->validate([
+         'nama'     => 'required|max:255'
+      ]);
+      $category = new Category;
+      $category->nama = $request->nama;
+      $category->save();
+      return redirect()->route('kategori')->with('success', 'Data berhasil ditambahkan');
    }
 
    public function editKategori($id)
@@ -381,17 +420,13 @@ class OwnerController extends Controller
 
    public function updateKategori(Request $request, $id)
    {
-      try {
-         $request->validate([
-            'nama'     => 'required|max:255'
-         ]);
-         $kategori = Category::find($id);
-         $kategori->nama = $request->nama;
-         $kategori->save();
-         return redirect()->route('kategori')->with('success', 'Data berhasil diperbarui');
-      } catch (\Throwable $th) {
-         return redirect()->route('kategori')->with('error', 'Data gagal diperbarui!');
-      }
+      $request->validate([
+         'nama'     => 'required|max:255'
+      ]);
+      $kategori = Category::find($id);
+      $kategori->nama = $request->nama;
+      $kategori->save();
+      return redirect()->route('kategori')->with('success', 'Data berhasil diperbarui');
    }
 
    public function destroyKategori($id)

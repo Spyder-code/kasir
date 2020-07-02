@@ -194,7 +194,7 @@
                $("#tBodyProduk").append(output);
             });
          } else {
-            $.get("{{ URL::to('/') }}/owner/produk/search/"+"0", function( response ) {
+            $.get("{{ URL::to('/') }}/owner/produk/search/"+"zero", function( response ) {
                const data = JSON.parse(response);
                let output;
                $("#tBodyProduk").empty();

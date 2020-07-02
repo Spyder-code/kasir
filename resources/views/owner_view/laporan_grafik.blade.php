@@ -19,7 +19,6 @@
             {{-- Masukan konten disini --}}
             <div class="card">
                <div class="card-body">
-                  {{-- <h4 class="card-title">Grafil Laporan Bulanan</h4> --}}
                   <canvas id="myChart" max-width="200" height="130"></canvas>
                </div>
             </div>
@@ -33,7 +32,7 @@
 
 @section('custom-script')
 <script>
-   $( document ).ready(function() {
+   $(document).ready(function() {
       const arraySalary = [];
             monthSalary = [];
 
@@ -50,7 +49,7 @@
             monthNov = [];
             monthDec = [];
 
-      $.get( "{{ route('laporan.show') }}", function( response ) {
+      $.get( "{{ route('laporan.show') }}", function(response) {
          const data = JSON.parse(response);
          const currentYear = new Date().getFullYear();
          data.map((data) => {

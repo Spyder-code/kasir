@@ -15,6 +15,14 @@
                </ol>
             </div>
          </div>
+         @error('nama')
+         <div class="alert alert-warning alert-dismissible fade show mt-1" role="alert">
+            {{ $message }}
+           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+           </button>
+         </div>
+         @enderror
          <div class="content mt-4">
             {{-- Masukan konten disini --}}
             <form action="{{ route('kategori.update', [$kategori->id]) }} }}" method="post">

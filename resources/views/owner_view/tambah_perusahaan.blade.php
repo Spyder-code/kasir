@@ -21,6 +21,38 @@
                  </button>
                </div>
                @endif
+               @error('nama')
+               <div class="alert alert-warning alert-dismissible fade show mt-1 ml-4 mr-4" role="alert">
+                  {{ $message }}
+                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+                 </button>
+               </div>
+               @enderror
+               @error('alamat')
+               <div class="alert alert-warning alert-dismissible fade show mt-1 ml-4 mr-4" role="alert">
+                  {{ $message }}
+                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+                 </button>
+               </div>
+               @enderror
+               @error('nomor')
+               <div class="alert alert-warning alert-dismissible fade show mt-1 ml-4 mr-4" role="alert">
+                  {{ $message }}
+                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+                 </button>
+               </div>
+               @enderror
+               @error('image')
+               <div class="alert alert-warning alert-dismissible fade show mt-1 ml-4 mr-4" role="alert">
+                  {{ $message }}
+                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+                 </button>
+               </div>
+               @enderror
                <div class="card-body">
                   <form action="{{route('perusahaan.store')}}" method="post" enctype="multipart/form-data">
                      @csrf

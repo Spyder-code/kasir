@@ -18,6 +18,30 @@
         </button>
       </div>
       @endif
+      @error('nama')
+      <div class="alert alert-warning alert-dismissible fade show mt-1" role="alert">
+         {{ $message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      @enderror
+      @error('alamat')
+      <div class="alert alert-warning alert-dismissible fade show mt-1" role="alert">
+         {{ $message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      @enderror
+      @error('image')
+      <div class="alert alert-warning alert-dismissible fade show mt-1" role="alert">
+         {{ $message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      @enderror
         <div class="card">
             <div class="row mt-5 mb-5 mr-5 ml-5">
                 <div class="col col-4">
